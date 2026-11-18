@@ -28,6 +28,7 @@ function displayBooks() {
 
     for (const book of myLibrary) {
         const bookCard = document.createElement("div");
+        bookCard.classList.add("book-card");
 
         const title = document.createElement("h2");
         title.textContent = book.title;
@@ -63,22 +64,29 @@ function displayBooks() {
 }
 
 libraryContainer.addEventListener("click", (event) => {
-    const bookId = event.target.dataset.id;
+    const button = event.target.closest("button");
 
-    if (event.target.textContent === "Remove") {
-        const bookIndex = myLibrary.findIndex((book) => {
-            return book.id === bookId;
-        });
+    if (!button) {
+        return;
+    }
 
+    const bookId = button.dataset.id;
+    const action = button.dataset.action;
+
+    const bookIndex = myLibrary.findIndex((book) => {
+        return book.id === bookId;
+    });
+
+    if (bookIndex === -1) {
+        return;
+    }
+
+    if (action === "remove") {
         myLibrary.splice(bookIndex, 1);
     }
 
-    if (event.target.textContent === "Mark as read" ||
-        event.target.textContent === "Mark as unread") {
-        const book = myLibrary.find((book) => {
-            return book.id === bookId;
-        });
-
+    if (action === "toggle-read") {
+        const book = myLibrary[bookIndex];
         book.isRead = !book.isRead;
     }
 
