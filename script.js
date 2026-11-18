@@ -19,9 +19,27 @@ addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, false);
 addBookToLibrary("Atomic Habits", "James Clear", 320, true);
 addBookToLibrary("Clean Code", "Robert C. Martin", 464, false);
 
-console.log(myLibrary);
-console.log(myLibrary.length);
+const libraryContainer = document.querySelector("#library-container");
 
-for (const book of myLibrary) {
-    console.log(book.title);
+console.log(libraryContainer);
+
+function displayBooks() {
+    libraryContainer.textContent = "";
+
+    for (const book of myLibrary) {
+        const bookCard = document.createElement("div");
+
+        const title = document.createElement("h2");
+        title.textContent = book.title;
+
+        const author = document.createElement("p");
+        author.textContent = `By ${book.author}`;
+
+        bookCard.appendChild(title);
+        bookCard.appendChild(author);
+
+        libraryContainer.appendChild(bookCard);
+    }
 }
+
+displayBooks();
