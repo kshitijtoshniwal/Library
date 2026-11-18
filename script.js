@@ -7,6 +7,10 @@ function Book(title, author, pages, isRead) {
     this.isRead = isRead;
 }
 
+Book.prototype.toggleRead = function () {
+    this.isRead = !this.isRead;
+};
+
 const myLibrary = [];
 
 function addBookToLibrary(title, author, pages, isRead) {
@@ -87,7 +91,7 @@ libraryContainer.addEventListener("click", (event) => {
 
     if (action === "toggle-read") {
         const book = myLibrary[bookIndex];
-        book.isRead = !book.isRead;
+        book.toggleRead();
     }
 
     displayBooks();
